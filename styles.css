@@ -118,7 +118,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 15px;
-    padding-top: 10%;
+    padding-top: 5%;
 }
 
 .social-buttons button {
