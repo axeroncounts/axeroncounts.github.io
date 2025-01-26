@@ -1,148 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SocialStats.app</title>
-    <!-- Link to Google Fonts for Inter font -->
+    <title>Axeron Counts</title>
+    <!-- Odkaz na Google Fonts pro písmo Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <!-- Link to FontAwesome for icons -->
+    <!-- Odkaz na FontAwesome pro ikony -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>SocialStats.app</h1>
-        <p class="tagline">Best analytics of all time, for all platforms!</p>
-        <p class="disclaimer">We are not affiliated with any of the mentioned sites in any way.</p>
+        <h1>Axeron Counts</h1>
+        <p class="tagline">Nejlepší live counter všech dob!</p>
+        <p class="disclaimer">Nejsme nijak spojeni s žádnou z uvedených stránek.</p>
         <div class="platform-logos">
             <a href="#" data-platform="youtube"><i class="fab fa-youtube"></i></a>
             <a href="#" data-platform="twitter"><i class="fab fa-x-twitter"></i></a>
             <a href="#" data-platform="twitch"><i class="fab fa-twitch"></i></a>
             <a href="#" data-platform="tiktok"><i class="fab fa-tiktok"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-bluesky"></i></a> <!-- Placeholder for Bluesky -->
+            <a href="#" target="_blank"><i class="fab fa-bluesky"></i></a> <!-- Zástupný symbol pro Bluesky -->
         </div>
         <div class="search-box">
-            <input type="text" id="search-input" placeholder="Search for anything! Or pick a platform...">
-            <button id="search-button">Search</button>
+            <input type="text" id="search-input" placeholder="Hledejte cokoliv! Nebo vyberte platformu...">
+            <button id="search-button">Hledat</button>
         </div>
         <div class="results" id="results"></div>
         <div class="social-buttons">
-            <button class="x-twitter-button"><i class="fab fa-x-twitter"></i> Follow on X</button>
-            <button class="discord-button"><i class="fab fa-discord"></i> Join Discord</button>
+            <button class="x-twitter-button"><i class="fab fa-x-twitter"></i> Sledovat na X</button>
+            <button class="discord-button"><i class="fab fa-discord"></i> Připojit se k Discordu</button>
         </div>
     </div>
 
     <script>
-const apiUrls = {
-    youtube: 'https://mixerno.space/api/youtube-channel-counter/search/',
-    twitter: 'https://mixerno.space/api/twitter-user-counter/search/',
-    twitch: 'https://mixerno.space/api/twitch-user-counter/search/',
-    tiktok: 'https://mixerno.space/api/tiktok-user-counter/search/'
-};
+        const apiUrls = {
+            youtube: 'https://mixerno.space/api/youtube-channel-counter/search/',
+            twitter: 'https://mixerno.space/api/twitter-user-counter/search/',
+            twitch: 'https://mixerno.space/api/twitch-user-counter/search/',
+            tiktok: 'https://mixerno.space/api/tiktok-user-counter/search/'
+        };
 
-const platformIcons = {
-    youtube: 'fab fa-youtube',
-    twitter: 'fab fa-x-twitter',
-    twitch: 'fab fa-twitch',
-    tiktok: 'fab fa-tiktok'
-};
+        const platformIcons = {
+            youtube: 'fab fa-youtube',
+            twitter: 'fab fa-x-twitter',
+            twitch: 'fab fa-twitch',
+            tiktok: 'fab fa-tiktok'
+        };
 
-const platformUrls = {
-    youtube: 'youtube', // Redirect to youtube.html with the channel ID
-    twitter: 'twitter', // Redirect to twitter.html with the user ID
-    twitch: 'twitch',   // Redirect to twitch.html with the user ID
-    tiktok: 'tiktok'    // Redirect to tiktok.html with the user ID
-};
+        const platformUrls = {
+            youtube: 'youtube', // Přesměrování na youtube.html s ID kanálu
+            twitter: 'twitter', // Přesměrování na twitter.html s ID uživatele
+            twitch: 'twitch',   // Přesměrování na twitch.html s ID uživatele
+            tiktok: 'tiktok'    // Přesměrování na tiktok.html s ID uživatele
+        };
 
-let selectedPlatform = 'youtube'; // Default platform
+        let selectedPlatform = 'youtube'; // Výchozí platforma
 
-document.querySelectorAll('.platform-logos a').forEach(link => {
-    link.addEventListener('click', (event) => {
-        event.preventDefault();
-        selectedPlatform = event.currentTarget.getAttribute('data-platform');
-        console.log(`Selected platform: ${selectedPlatform}`);
-    });
-});
-
-const searchInput = document.getElementById('search-input');
-const resultsContainer = document.getElementById('results');
-
-const fetchResults = (query) => {
-    if (!query) {
-        resultsContainer.innerHTML = ''; // Clear results if query is empty
-        resultsContainer.style.opacity = 0;
-        return;
-    }
-
-    const apiUrl = apiUrls[selectedPlatform];
-    console.log(`Fetching data from: ${apiUrl}${query}`); // Debugging
-
-    fetch(`${apiUrl}${query}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('API Response:', data); // Debugging
-            if (data && Array.isArray(data.list) && data.list.length > 0) {
-                resultsContainer.innerHTML = ''; // Clear previous results
-
-                // Limit results to a maximum of 4
-                const maxResults = data.list.slice(0, 4);
-
-                maxResults.forEach(item => {
-                    const [name, imageUrl, id] = item;
-                    const resultItem = document.createElement('div');
-                    resultItem.className = 'result-item';
-
-                    // Add platform icon
-                    const platformIconClass = platformIcons[selectedPlatform];
-                    resultItem.innerHTML = `
-                        <div class="result-icon">
-                            <i class="${platformIconClass}"></i>
-                        </div>
-                        <img src="${imageUrl}" alt="${name}" width="50" height="50">
-                        <span>${name}</span>
-                    `;
-
-                    // Add click event to redirect to the profile page
-                    resultItem.addEventListener('click', () => {
-                        const profileUrl = `${platformUrls[selectedPlatform]}?${id}`;
-                        window.location.href = profileUrl;
-                    });
-
-                    resultsContainer.appendChild(resultItem);
-                });
-                resultsContainer.style.opacity = 1; // Show results with animation
-            } else {
-                console.error('No results found or unexpected response format:', data);
-                resultsContainer.innerHTML = '<p>No results found. Try a different search.</p>';
-                resultsContainer.style.opacity = 1;
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            resultsContainer.innerHTML = `<p>Error fetching data: ${error.message}</p>`;
-            resultsContainer.style.opacity = 1;
+        document.querySelectorAll('.platform-logos a').forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                selectedPlatform = event.currentTarget.getAttribute('data-platform');
+                console.log(`Vybraná platforma: ${selectedPlatform}`);
+            });
         });
-};
 
-// Event listener for input to fetch results as the user types
-searchInput.addEventListener('input', () => {
-    const query = searchInput.value.trim();
-    fetchResults(query);
-});
+        const searchInput = document.getElementById('search-input');
+        const resultsContainer = document.getElementById('results');
 
-// Event listener for search button click
-document.getElementById('search-button').addEventListener('click', () => {
-    const query = searchInput.value.trim();
-    fetchResults(query);
-});
-</script>
+        const fetchResults = (query) => {
+            if (!query) {
+                resultsContainer.innerHTML = ''; // Vymazat výsledky, pokud je dotaz prázdný
+                resultsContainer.style.opacity = 0;
+                return;
+            }
+
+            const apiUrl = apiUrls[selectedPlatform];
+            console.log(`Načítání dat z: ${apiUrl}${query}`); // Ladění
+
+            fetch(`${apiUrl}${query}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Chyba HTTP! stav: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Odpověď API:', data); // Ladění
+                    if (data && Array.isArray(data.list) && data.list.length > 0) {
+                        resultsContainer.innerHTML = ''; // Vymazat předchozí výsledky
+
+                        // Omezení výsledků na maximálně 4
+                        const maxResults = data.list.slice(0, 4);
+
+                        maxResults.forEach(item => {
+                            const [name, imageUrl, id] = item;
+                            const resultItem = document.createElement('div');
+                            resultItem.className = 'result-item';
+
+                            // Přidání ikony platformy
+                            const platformIconClass = platformIcons[selectedPlatform];
+                            resultItem.innerHTML = `
+                                <div class="result-icon">
+                                    <i class="${platformIconClass}"></i>
+                                </div>
+                                <img src="${imageUrl}" alt="${name}" width="50" height="50">
+                                <span>${name}</span>
+                            `;
+
+                            // Přidání události kliknutí pro přesměrování na stránku profilu
+                            resultItem.addEventListener('click', () => {
+                                const profileUrl = `${platformUrls[selectedPlatform]}?${id}`;
+                                window.location.href = profileUrl;
+                            });
+
+                            resultsContainer.appendChild(resultItem);
+                        });
+                        resultsContainer.style.opacity = 1; // Zobrazení výsledků s animací
+                    } else {
+                        console.error('Nebyly nalezeny žádné výsledky nebo neočekávaný formát odpovědi:', data);
+                        resultsContainer.innerHTML = '<p>Nebyly nalezeny žádné výsledky. Zkuste jiné hledání.</p>';
+                        resultsContainer.style.opacity = 1;
+                    }
+                })
+                .catch(error => {
+                    console.error('Chyba při načítání dat:', error);
+                    resultsContainer.innerHTML = `<p>Chyba při načítání dat: ${error.message}</p>`;
+                    resultsContainer.style.opacity = 1;
+                });
+        };
+
+        // Událost pro vstup, aby se načetly výsledky, jak uživatel píše
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim();
+            fetchResults(query);
+        });
+
+        // Událost pro kliknutí na tlačítko hledání
+        document.getElementById('search-button').addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            fetchResults(query);
+        });
+    </script>
 </body>
 </html>
