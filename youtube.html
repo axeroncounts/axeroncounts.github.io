@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Live Subscriber Count</title>
-    <!-- Link to YouTube icon as favicon -->
+    <!-- Odkaz na ikonu YouTube jako favicon -->
     <link rel="icon" href="youtube-icon.png" type="image/png">
-    <!-- Link to Google Fonts for Inter font -->
+    <!-- Odkaz na Google Fonts pro písmo Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Link to FontAwesome for icons -->
+    <!-- Odkaz na FontAwesome pro ikony -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <!-- Link to Odometer CSS from local path -->
+    <!-- Odkaz na Odometer CSS z lokální cesty -->
     <link rel="stylesheet" href="odometer-theme-default.css" />
     <link rel="stylesheet" href="youtube.css">
 </head>
@@ -22,27 +22,27 @@
     <div class="container">
         <div class="channel-banner" id="channel-banner"></div>
         <div class="avatar" id="avatar"></div>
-        <div class="channel-name" id="channel-name">Channel Name</div>
+        <div class="channel-name" id="channel-name">Název Kanálu</div>
         <div class="subscriber-count odometer" id="subscriber-count">0</div>
-        <div class="subscriber-label" id="subscriber-label">Subscribers</div> <!-- Added ID here -->
+        <div class="subscriber-label" id="subscriber-label">Odběratelů</div> <!-- Přidáno ID -->
     </div>
-    <button class="home-button" onclick="window.location.href='index.html'">Go Back to Homepage</button>
+    <button class="home-button" onclick="window.location.href='index.html'">Zpět na Domovskou Stránku</button>
 
-    <!-- Include Odometer JS from local path -->
+    <!-- Připojení Odometer JS z lokální cesty -->
     <script src="odometer.min.js"></script>
     <script>
 function getChannelIdFromUrl() {
-    // Get the query string from the URL
+    // Získání query string z URL
     const queryString = window.location.search;
 
-    // Remove the leading "?" and return the channel ID
+    // Odstranění úvodního "?" a vrácení ID kanálu
     return queryString.substring(1);
 }
 
         async function fetchYouTubeData() {
             const channelId = getChannelIdFromUrl();
             if (!channelId) {
-                console.error('Channel ID not found in URL');
+                console.error('ID kanálu nebylo nalezeno v URL');
                 return;
             }
 
@@ -50,45 +50,45 @@ function getChannelIdFromUrl() {
                 const response = await fetch(`https://backend.mixerno.space/api/youtube/estv3/${channelId}`);
                 const data = await response.json();
 
-                // Check if the response contains valid data
+                // Kontrola, zda odpověď obsahuje platná data
                 if (data.success && data.items && data.items.length > 0) {
                     const channelData = data.items[0];
 
-                    // Update channel banner
+                    // Aktualizace banneru kanálu
                     const channelBanner = document.getElementById('channel-banner');
                     if (channelBanner) {
                         channelBanner.style.backgroundImage = `url(${channelData.brandingSettings.image})`;
                     }
 
-                    // Update avatar
+                    // Aktualizace avataru
                     const avatar = document.getElementById('avatar');
                     if (avatar) {
                         avatar.style.backgroundImage = `url(${channelData.snippet.thumbnails.default.url})`;
                     }
 
-                    // Update channel name
+                    // Aktualizace názvu kanálu
                     const channelName = document.getElementById('channel-name');
                     if (channelName) {
                         channelName.textContent = channelData.snippet.title;
                     }
 
-                    // Update subscriber count using Odometer
+                    // Aktualizace počtu odběratelů pomocí Odometer
                     const subscriberCountElement = document.getElementById('subscriber-count');
                     if (subscriberCountElement) {
                         subscriberCountElement.innerHTML = channelData.statistics.subscriberCount;
                     }
 
-                    // Update subscriber label
+                    // Aktualizace popisku odběratelů
                     const subscriberLabel = document.getElementById('subscriber-label');
                     if (subscriberLabel) {
-                        subscriberLabel.textContent = 'Subscribers';
+                        subscriberLabel.textContent = 'Odběratelů';
                     }
                 } else {
-                    console.error('No valid channel data found in the response');
-                    // Fallback: Display a message or default values
+                    console.error('V odpovědi nebyla nalezena platná data o kanálu');
+                    // Záložní řešení: Zobrazení zprávy nebo výchozích hodnot
                     const channelName = document.getElementById('channel-name');
                     if (channelName) {
-                        channelName.textContent = 'Channel not found';
+                        channelName.textContent = 'Kanál nebyl nalezen';
                     }
 
                     const subscriberCountElement = document.getElementById('subscriber-count');
@@ -98,15 +98,15 @@ function getChannelIdFromUrl() {
 
                     const subscriberLabel = document.getElementById('subscriber-label');
                     if (subscriberLabel) {
-                        subscriberLabel.textContent = 'Subscribers (unavailable)';
+                        subscriberLabel.textContent = 'Odběratelů (nedostupné)';
                     }
                 }
             } catch (error) {
-                console.error('Error fetching YouTube data:', error);
-                // Fallback: Display an error message
+                console.error('Chyba při načítání dat z YouTube:', error);
+                // Záložní řešení: Zobrazení chybové zprávy
                 const channelName = document.getElementById('channel-name');
                 if (channelName) {
-                    channelName.textContent = 'Error loading data';
+                    channelName.textContent = 'Chyba při načítání dat';
                 }
 
                 const subscriberCountElement = document.getElementById('subscriber-count');
@@ -116,15 +116,15 @@ function getChannelIdFromUrl() {
 
                 const subscriberLabel = document.getElementById('subscriber-label');
                 if (subscriberLabel) {
-                    subscriberLabel.textContent = 'Subscribers (unavailable)';
+                    subscriberLabel.textContent = 'Odběratelů (nedostupné)';
                 }
             }
         }
 
-        // Fetch data every 2 seconds
+        // Načítání dat každé 2 sekundy
         setInterval(fetchYouTubeData, 2000);
 
-        // Initial fetch
+        // Prvotní načtení dat
         fetchYouTubeData();
     </script>
 </body>
