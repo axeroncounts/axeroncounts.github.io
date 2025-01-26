@@ -1,4 +1,4 @@
-/* Existing CSS */
+/* Base CSS (for 1920x1080) */
 body {
     font-family: 'Inter', Arial, sans-serif;
     background-color: #ffffff;
@@ -73,7 +73,7 @@ h1 {
 .platform-logos .fa-x-twitter { color: #000000; }
 .platform-logos .fa-twitch { color: #9146FF; }
 .platform-logos .fa-tiktok { color: #ff0077; }
-.platform-logos .fa-bluesky { color: #00acee; } /* Placeholder color for Bluesky */
+.platform-logos .fa-bluesky { color: #00acee; }
 
 .search-box {
     display: flex;
@@ -94,7 +94,7 @@ h1 {
 }
 
 .search-box input:hover {
-    background-color: #e0e0e0; /* Slightly darker on hover */
+    background-color: #e0e0e0;
 }
 
 .search-box button {
@@ -178,22 +178,122 @@ h1 {
     height: 50px;
 }
 
-/* New CSS for platform icons in result items */
 .result-item .result-icon {
     margin-right: 10px;
     font-size: 20px;
-    color: #666; /* Default icon color */
+    color: #666;
 }
 
-.result-item .fa-youtube { color: #FF0000; } /* YouTube icon color */
-.result-item .fa-x-twitter { color: #000000; } /* X (Twitter) icon color */
-.result-item .fa-twitch { color: #9146FF; } /* Twitch icon color */
-.result-item .fa-tiktok { color: #ff0077; } /* TikTok icon color */
+.result-item .fa-youtube { color: #FF0000; }
+.result-item .fa-x-twitter { color: #000000; }
+.result-item .fa-twitch { color: #9146FF; }
+.result-item .fa-tiktok { color: #ff0077; }
 
-/* Additional styling for result text */
 .result-item span {
     font-size: 1.1em;
     color: #333;
     flex-grow: 1;
     text-align: left;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Mobile Screens (up to 768px) */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        padding-bottom: 10%;
+        max-width: 90%;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .tagline {
+        font-size: 1.1rem;
+    }
+
+    .disclaimer {
+        font-size: 0.75rem;
+    }
+
+    .platform-logos a {
+        font-size: 35px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .search-box input {
+        width: 60%;
+        font-size: 14px;
+    }
+
+    .search-box button {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .social-buttons button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .result-item img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .result-item span {
+        font-size: 1em;
+    }
+}
+
+/* Larger Screens (above 1920px) */
+@media (min-width: 1921px) {
+    .container {
+        max-width: 800px;
+    }
+
+    h1 {
+        font-size: 5rem;
+    }
+
+    .tagline {
+        font-size: 1.6rem;
+    }
+
+    .disclaimer {
+        font-size: 1rem;
+    }
+
+    .platform-logos a {
+        font-size: 50px;
+        width: 60px;
+        height: 60px;
+    }
+
+    .search-box input {
+        width: 80%;
+        font-size: 18px;
+    }
+
+    .search-box button {
+        padding: 14px 28px;
+        font-size: 18px;
+    }
+
+    .social-buttons button {
+        padding: 14px 28px;
+        font-size: 18px;
+    }
+
+    .result-item img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .result-item span {
+        font-size: 1.2em;
+    }
 }
