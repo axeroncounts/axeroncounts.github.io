@@ -118,6 +118,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 15px;
+    padding-top: 10%;
 }
 
 .social-buttons button {
@@ -159,19 +160,22 @@ h1 {
     align-items: center;
     margin-bottom: 10px;
     padding: 10px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    border-radius: 12px;
+    background-color: #f0f0f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
 .result-item:hover {
     transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .result-item img {
     border-radius: 50%;
     margin-right: 10px;
+    width: 50px;
+    height: 50px;
 }
 
 /* New CSS for platform icons in result items */
@@ -185,3 +189,11 @@ h1 {
 .result-item .fa-x-twitter { color: #000000; } /* X (Twitter) icon color */
 .result-item .fa-twitch { color: #9146FF; } /* Twitch icon color */
 .result-item .fa-tiktok { color: #ff0077; } /* TikTok icon color */
+
+/* Additional styling for result text */
+.result-item span {
+    font-size: 1.1em;
+    color: #333;
+    flex-grow: 1;
+    text-align: left;
+}
