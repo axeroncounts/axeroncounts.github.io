@@ -1,0 +1,129 @@
+/* Your CSS remains unchanged */
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.container {
+    text-align: center;
+    background-color: #fff;
+    padding: 0px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 80vh;
+    width: 90%;
+    max-width: 1000px;
+    position: relative;
+    margin-top: 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.channel-banner {
+    width: 100%;
+    height: 150px;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    margin-bottom: -85px;
+    background-size: cover;
+    background-position: center;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 0px;
+    background-size: cover;
+    background-position: center;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.channel-name {
+    font-size: 3rem;
+    font-weight: 500;
+    margin-bottom: 0px;
+}
+
+.subscriber-count {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 20px;
+    font-variant-numeric: tabular-nums;
+}
+
+.subscriber-label {
+    font-size: 1rem;
+    color: #666666;
+    margin-bottom: 25vh;
+}
+
+.home-button {
+    padding: 10px 20px;
+    width: 240px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    background-color: #4f46e5;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.home-button:hover {
+    background-color: #4338ca;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .channel-banner {
+        height: 100px;
+    }
+
+    .avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .channel-name {
+        font-size: 1.2rem;
+    }
+
+    .subscriber-count {
+        font-size: 1.5rem;
+    }
+
+    .subscriber-label {
+        font-size: 0.8rem;
+    }
+
+    .home-button {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}
